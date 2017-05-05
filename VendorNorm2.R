@@ -1,5 +1,6 @@
 VendorNorm2 <- function(ven){
   
+  require('NLP')
   require('tm')
   
   #custom functions
