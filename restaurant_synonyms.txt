@@ -1,0 +1,44 @@
+alehouse
+bakery
+bar
+barbeque
+bbq
+bist
+bistro
+brasserie
+brickoven
+buffet
+caf
+cafeteria
+canteen
+coffee
+coffee bar
+coffee shop
+cuisine
+deli
+delicat..
+diner
+eatery
+fast food
+gril
+grill
+grille
+inn
+kitchen
+lounge
+lunchroom
+pizzeria
+pub
+restaurant
+ristorante
+roadhouse
+rotisserie
+saloon
+snack bar
+sushi
+tapas
+taproom
+tavern
+taverna
+tearoom
+wine bar
