@@ -77,7 +77,14 @@ numberOfWorkMinutes <- function(rangeFrom,
       adm <- range.minutes[1] #all day minutes
       fdnw <- adm - firstDayMinutes(rangeFrom) #first day not worked
       ldnw <- adm - lastDayMinutes(rangeTo) #last day not worked
-      range.minutes[1]  <- adm - (fdnw + ldnw)
+      mins <- adm - (fdnw + ldnw)
+      
+      if(mins < 0){
+        #do not adjust for lunch
+        mins <- mins - lunchAdjust
+      }
+        
+      range.minutes[1]  <- mins
   }
   
   L <- unlist(lapply(range.days, function(x) !x %in% holidays & !weekdays(x) %in% weekends & !x %in% vacationDays))
