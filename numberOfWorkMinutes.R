@@ -14,8 +14,8 @@
 
 numberOfWorkMinutes <- function(rangeFrom,
                                 rangeTo,
-                                dayStart=strptime("08:30",format = "%H:%M"),
-                                dayEnd = strptime("17:30",format = "%H:%M"),
+                                dayStart=strptime('08:30',format = '%H:%M'),
+                                dayEnd = strptime('17:30',format = '%H:%M'),
                                 lunchAdjust = - 60,
                                 weekends = c('Saturday','Sunday'),
                                 holidays=NULL,
