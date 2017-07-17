@@ -39,11 +39,12 @@ file.differences <- function(A_file_name, B_file_name){
   #Records in B not in A
   B_nA <- (dplyr::setdiff(ds.B,ds.A))$FILE_ROW_ID
   
-  #set ROW_IDENTITY
+  #set FILE_IDENTITY
   ds.A$FILE_IDENTITY <- 'A'  
   
   ds.B$FILE_IDENTITY <- 'B'
   
+  #create additional columns for each file                            
   ds.A$ROW_IDENTITY_DUP <- NA  
   
   ds.B$ROW_IDENTITY_DUP <- NA
