@@ -1,15 +1,18 @@
+#CREATED BY: Peter Sabela
+
+#DESCRIPTION: compare two Excel files.
+
+#PARAMETERS: are two excel file names with extensions. Ex. 'file1.xlsx','file1.xlsx'
+
+#RETURNS: single data frame.  Each file is reduces to columns that are common if both files.  Then, both files are row binded into one data frame.  
+   #Next, 4 columns are appended with the results:
+   #column FILE_ROW_ID:      is a digest::digest(x,algo = 'sha1') of each record in the data.frame.
+   #column FILE_IDENTITY:    values: "A","B".  "A" value indicates that the record belongs to the first file, "B" to the second file.
+   #column ROW_IDENTITY_DUP: values: "A.dup", "B.dup".  "A.dup" value indicates that record is a duplicate record of another record in file A.  "B.dup" is a duplicate of another record in file B.
+   #column ROW_IDENTITY_XNY: valeus: "A_nB","B_nA".  "A_nB" value indicates that the records exists in file A but does not exist in file B.  "B_nA"
+
 library(readxl)
 library(dplyr)
-
-#compare two files.  
-#the result:
-#each file is reduces to columns that are common if both files
-#both files are combined into one
-#2 columns are added to the result:
-#column ROW_IDENTITY: "A" value indicates that the record belongs to first file, "B" to the second file.
-#column ROW_IDENTITY_DUP: "A.dup" value indicates that record is a duplicate record of another record in file A
-
-
 
 #Save the two files in a directory and set that directory as home directory
 file.differences <- function(A_file_name, B_file_name){
