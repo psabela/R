@@ -14,7 +14,6 @@
 library(readxl)
 library(dplyr)
 
-#Save the two files in a directory and set that directory as home directory
 file.differences <- function(A_file_name, B_file_name){
   
   #Load A file
