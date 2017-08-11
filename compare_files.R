@@ -23,10 +23,19 @@ file.differences <- function(ds.A, ds.B){
   
   ds.B <- ds.B %>% select(common_fields)
   
-  #set file row ids
-  ds.A$FILE_ROW_ID <- apply(ds.A,MARGIN = 1, function(x) digest::digest(x,algo = 'sha1') )
-  
-  ds.B$FILE_ROW_ID <- apply(ds.B,MARGIN = 1, function(x) digest::digest(x,algo = 'sha1') )
+#set file row ids
+ds.A$FILE_ROW_ID <- NA
+ds.B$FILE_ROW_ID <- NA
+
+for(i in 1:nrow(ds.A))
+{
+  ds.A[i,]$FILE_ROW_ID <- digest::digest(paste(ds.A[i,],collapse = '|'), algo = "sha1",seed = 1128)
+}
+
+for(i in 1:nrow(ds.B))
+{
+  ds.B[i,]$FILE_ROW_ID <- digest::digest(paste(ds.B[i,],collapse = '|'), algo = "sha1",seed = 1128)
+}
   
   #Records in B not in A
   A_nB <- (dplyr::setdiff(ds.A,ds.B))$FILE_ROW_ID
