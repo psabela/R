@@ -1,8 +1,8 @@
 #CREATED BY: Peter Sabela
 
-#DESCRIPTION: compare two Excel files.
+#DESCRIPTION: compare two data frames.
 
-#PARAMETERS: are two excel file names with extensions. Ex. 'file1.xlsx','file1.xlsx'
+#PARAMETERS: are two data frames.
 
 #RETURNS: single data frame.  Each file is reduces to columns that are common if both files.  Then, both files are row binded into one data frame.  
    #Next, 4 columns are appended with the results:
@@ -14,13 +14,7 @@
 library(readxl)
 library(dplyr)
 
-file.differences <- function(A_file_name, B_file_name){
-  
-  #Load A file
-  ds.A <- read_excel(A_file_name,sheet=1,skip = 0)
-  
-  #Load B file
-  ds.B <- read_excel(B_file_name,sheet=1,skip = 0)
+file.differences <- function(ds.A, ds.B){
   
   #Set both datasets into commont columns
   common_fields <- dplyr::intersect(names(ds.A), names(ds.B))
