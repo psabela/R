@@ -1,9 +1,13 @@
+#AUTOLOAD REQUIRED PACKAGES
+
 installed_packages <- 'pacman' %in% rownames(installed.packages())
 if (any(installed_packages == FALSE)) { install.packages("pacman") }
-library(pacman)
 
+library(pacman)
 pacman::p_load(tidyverse, readr, lubridate, NLP, tm)
 
+
+#FUNCTION TO CLEAN UP VENDOR NAMES
 
 VendorNorm2 <- function(ven){
   
