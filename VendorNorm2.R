@@ -1,7 +1,11 @@
+installed_packages <- 'pacman' %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) { install.packages("pacman") }
+library(pacman)
+
+pacman::p_load(tidyverse, readr, lubridate, NLP, tm)
+
+
 VendorNorm2 <- function(ven){
-  
-  require('NLP')
-  require('tm')
   
   #custom functions
   ps_removeWords  <- function(x,wordList){
