@@ -9,9 +9,32 @@ pacman::p_load(tidyverse, readr, lubridate, NLP, tm)
 
 #FUNCTION TO CLEAN UP VENDOR NAMES
 
-VendorNorm2 <- function(ven){
+VendorNorm2 <- function(ven, code = FALSE){
   
   #custom functions
+  
+  splitpaste  <- function(x,z){
+    for(i in 1 : length(x))
+    {
+      
+      #y <-unlist(strsplit(x[i], split = ' '))[1:2]
+      y <-unlist(strsplit(x[i], split = ' '))
+      y <- y[!(y %in% stopwords(kind='en'))]
+      y <- y[1:2]
+      
+      if(is.na(y[2])){
+        z[i] <- y
+      }
+      else{
+        z[i]  <- paste(y[1],y[2], sep = " ")
+      }
+    }
+    z      
+  }
+  
+  
+  
+  
   ps_removeWords  <- function(x,wordList){
     for(i in 1 : length(x))
     {
@@ -198,6 +221,22 @@ VendorNorm2 <- function(ven){
   ven <- stripWhitespace(ven)
   ven <- ps_firstTwo(ven)
   ven <- toupper(ven)
+  
+  if(code == TRUE)
+  {
+  
+    VendorFirstTwo5 <- substr(ven,1,5)
+    VendorFirstTwo5 <- gsub('[0-9]+$','',VendorFirstTwo5) #RemoveNumTail
+    VendorFirstTwo5 <- gsub("^\\s+|\\s+$", "", VendorFirstTwo5)#Trim
+    VendorFirstTwo5 <- gsub(" [a-zA-Z]$", "",VendorFirstTwo5)# Remove lonely single characters at the tail
+      
+    ven = VendorFirstTwo5
+  
+  }
+  
+  
+  
+  
   
   return(ven)
 }
