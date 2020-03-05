@@ -125,17 +125,12 @@ VendorNorm2 <- function(ven, code = FALSE){
           
   
   
-  
-  
-  
-  
- 
-  
   #load stopword lists
   stword <- stopwords('en')
   stword <- stword[nchar(stword) < 4]
   restaurants <- c("alehouse","bakery","bar","barbeque","bbq","bist","bistro","brasserie","brickoven","buffet"," caf","cafeteria","canteen","coffee","coffee bar","coffee shop","cuisine","fast food","gril","grill","grille","inn","kitchen","lounge","lunchroom","pizzeria","pub","restaurant","ristorante","roadhouse","rotisserie","saloon","snack bar","sushi","tapas","taproom","tavern","taverna","tearoom","wine bar")
   
+  ven <- str_replace_all(ven,"[^[:graph:]]", " ") 
   ven <- tolower(ven)
   
   #strip prefixes
@@ -233,10 +228,6 @@ VendorNorm2 <- function(ven, code = FALSE){
     ven = VendorFirstTwo5
   
   }
-  
-  
-  
-  
   
   return(ven)
 }
