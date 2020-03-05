@@ -81,27 +81,32 @@ VendorNorm2 <- function(ven){
     z      
   }
   
+  
   ps_firstTwo  <- function(x){
     
     z <- NULL
     
-    for(i in 1 : length(x))
-    {
-      
-      #y <-unlist(strsplit(x[i], split = ' '))[1:2]
-      y <-unlist(strsplit(x[i], split = ' '))
+      y <-unlist(strsplit(x, split = ' '))
       y <- y[!(y %in% stopwords(kind='en'))]
       y <- y[1:2]
       
       if(is.na(y[2])){
-        z[i] <- y
+        z <- y[1]
       }
       else{
-        z[i]  <- paste(y[1],y[2], sep = " ")
+        z <- paste(y[1],y[2], sep = " ")
       }
+    
+      z  
     }
-    z      
-  }
+          
+  
+  
+  
+  
+  
+  
+ 
   
   #load stopword lists
   stword <- stopwords('en')
@@ -189,7 +194,7 @@ VendorNorm2 <- function(ven){
   
   ven <- ps_removeWords(ven,stword)
   ven <- ps_removeWords(ven,restaurants)
-  ven <- ps_trimEnd(ven, pattern = '(s|S)$', len = 1)#remove s endings 
+# ven <- ps_trimEnd(ven, pattern = '(s|S)$', len = 1)#remove s endings 
   ven <- stripWhitespace(ven)
   ven <- ps_firstTwo(ven)
   ven <- toupper(ven)
