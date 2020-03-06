@@ -7,9 +7,14 @@ library(pacman)
 pacman::p_load(tidyverse, readr, lubridate, NLP, tm)
 
 
-#FUNCTION TO CLEAN UP VENDOR NAMES
+#R FUNCTION TO CLEAN UP VENDOR NAMES
+#code values are: 
+#  all      = include all words
+#  firsttwo = first two words
+#  code     = code characters based on first 5 letters.
 
-VendorNorm2 <- function(ven, code = FALSE){
+VendorNorm2 <- function(ven, code = "all")
+{
   
   #custom functions
   
@@ -31,9 +36,6 @@ VendorNorm2 <- function(ven, code = FALSE){
     }
     z      
   }
-  
-  
-  
   
   ps_removeWords  <- function(x,wordList){
     for(i in 1 : length(x))
@@ -104,7 +106,6 @@ VendorNorm2 <- function(ven, code = FALSE){
     z      
   }
   
-  
   ps_firstTwo  <- function(x){
     
     z <- NULL
@@ -123,7 +124,6 @@ VendorNorm2 <- function(ven, code = FALSE){
       z  
     }
           
-  
   
   #load stopword lists
   stword <- stopwords('en')
@@ -209,25 +209,30 @@ VendorNorm2 <- function(ven, code = FALSE){
   ven <- gsub("^\\s+|\\s+$", "", ven)#Trim
   ven <- gsub("www", "", ven)
   ven <- gsub('^ups ', 'ups', ven)
-  
   ven <- ps_removeWords(ven,stword)
   ven <- ps_removeWords(ven,restaurants)
 # ven <- ps_trimEnd(ven, pattern = '(s|S)$', len = 1)#remove s endings 
   ven <- stripWhitespace(ven)
-  ven <- ps_firstTwo(ven)
-  ven <- toupper(ven)
   
-  if(code == TRUE)
+  
+  if(code == 'firsttwo')
   {
-  
+    ven <- ps_firstTwo(ven)
+  }
+  else if(code == 'code')
+  {
+    ven <- ps_firstTwo(ven)
     VendorFirstTwo5 <- substr(ven,1,5)
     VendorFirstTwo5 <- gsub('[0-9]+$','',VendorFirstTwo5) #RemoveNumTail
     VendorFirstTwo5 <- gsub("^\\s+|\\s+$", "", VendorFirstTwo5)#Trim
     VendorFirstTwo5 <- gsub(" [a-zA-Z]$", "",VendorFirstTwo5)# Remove lonely single characters at the tail
-      
     ven = VendorFirstTwo5
-  
   }
-  
+  else
+  {
+    ven
+  }
+ 
+  ven <- toupper(ven)
   return(ven)
 }
