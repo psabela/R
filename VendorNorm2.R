@@ -61,6 +61,15 @@ VendorNorm2 <- function(ven, code = "all")
     x    
   }
   
+  ps_removeSubStrings  <- function(x,wordList){
+    for(i in seq(wordList))
+    {
+      x <- gsub(wordList[i],'',x)
+    } 
+    x   
+  }
+  
+  
   ps_trimEnd <- function(x,pattern = '(s|S)$',len=1){
     for(i in 1 : length(x))
     {
@@ -181,6 +190,7 @@ VendorNorm2 <- function(ven, code = "all")
   ven <- gsub('int\\*',' ',ven)
   ven <- gsub('intuit \\*',' ',ven)
   ven <- gsub('in \\*',' ',ven)
+  ven <- gsub('doordash\\*','',ven)
   ven <- gsub('google\\*',' ',ven)
   ven <- gsub('ftd\\*',' ',ven)
   ven <- gsub('fs \\*',' ',ven)
@@ -210,7 +220,7 @@ VendorNorm2 <- function(ven, code = "all")
   ven <- gsub("www", "", ven)
   ven <- gsub('^ups ', 'ups', ven)
   ven <- ps_removeWords(ven,stword)
-  ven <- ps_removeWords(ven,restaurants)
+  ven <- ps_removeSubStrings(ven,restaurants)
 # ven <- ps_trimEnd(ven, pattern = '(s|S)$', len = 1)#remove s endings 
   ven <- stripWhitespace(ven)
   
